@@ -16,13 +16,29 @@ sudo usermod -aG docker $USER     # чтобы запускать docker без 
 # выйдите и зайдите снова (или: newgrp docker)
 ```
 
-## Шаг 2. Получить код
+## Шаг 2. Получить код (приватный репозиторий)
+
+Репозиторий приватный — для клонирования нужна авторизация. **Рекомендуемый способ —
+GitHub CLI на сервере** (он же настроит `git pull` на будущее):
 
 ```bash
-git clone <URL_РЕПОЗИТОРИЯ> hookahguide
+# Установка gh на Ubuntu/Debian:
+sudo apt update && sudo apt install -y gh   # если пакета нет — см. cli.github.com/manual/installation
+
+gh auth login          # GitHub.com → HTTPS → Login with a web browser (вставьте код)
+gh repo clone slavenski01/hookahguide hookahguide
 cd hookahguide
 ```
-(URL появится после публикации на GitHub — см. отдельную инструкцию по пушу.)
+
+**Альтернатива — токен (если не хотите ставить gh):** создайте на GitHub
+fine-grained Personal Access Token с доступом **read-only Contents** к этому репозиторию
+(Settings → Developer settings → Fine-grained tokens), затем:
+```bash
+git clone https://<ВАШ_ТОКЕН>@github.com/slavenski01/hookahguide.git hookahguide
+cd hookahguide
+```
+> SSH-клонирование (`git@github.com:...`) тоже возможно через deploy-key, но на некоторых
+> сетях порт 22 закрыт — HTTPS-способы выше надёжнее.
 
 ## Шаг 3. Настроить переменные окружения
 
