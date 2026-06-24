@@ -217,6 +217,24 @@
     "updated": "2026-06-24"
   },
   {
+    "slug": "rozzhig-ustrojstva",
+    "title": "Розжиг углей: устройства и способы",
+    "section": "03-ugli",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "угли",
+      "розжиг",
+      "плита",
+      "горелка",
+      "индукция",
+      "природа"
+    ],
+    "sources": 3,
+    "path": "knowledge/03-ugli/rozzhig-ustrojstva.md",
+    "updated": "2026-06-24"
+  },
+  {
     "slug": "vidy-uglej-i-rozzhig",
     "title": "Угли: виды, размеры и розжиг",
     "section": "03-ugli",
@@ -287,6 +305,23 @@
     "updated": "2026-06-24"
   },
   {
+    "slug": "podgotovka-i-uhod",
+    "title": "Подготовка и уход за чашей",
+    "section": "05-chashi",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "чаши",
+      "уход",
+      "глина",
+      "прокаливание",
+      "чистка"
+    ],
+    "sources": 3,
+    "path": "knowledge/05-chashi/podgotovka-i-uhod.md",
+    "updated": "2026-06-24"
+  },
+  {
     "slug": "vidy-chash",
     "title": "Виды чаш и под какой табак",
     "section": "05-chashi",
@@ -302,6 +337,23 @@
     ],
     "sources": 3,
     "path": "knowledge/05-chashi/vidy-chash.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "kalaud-vs-folga",
+    "title": "Калауд против фольги: что выбрать",
+    "section": "06-nagrev",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "нагрев",
+      "калауд",
+      "фольга",
+      "сравнение",
+      "техника"
+    ],
+    "sources": 3,
+    "path": "knowledge/06-nagrev/kalaud-vs-folga.md",
     "updated": "2026-06-24"
   },
   {
@@ -421,6 +473,42 @@
     ],
     "sources": 3,
     "path": "knowledge/09-uhod/chistka-i-hranenie.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "glubokaya-chistka",
+    "title": "Глубокая чистка и устранение запахов",
+    "section": "09-uhod",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "уход",
+      "чистка",
+      "запах",
+      "налёт",
+      "шахта",
+      "колба",
+      "шланг"
+    ],
+    "sources": 3,
+    "path": "knowledge/09-uhod/glubokaya-chistka.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "kak-otkryt-kalyannuyu",
+    "title": "Как открыть кальянную: бизнес-основы",
+    "section": "10-industriya",
+    "level": "intermediate",
+    "status": "done",
+    "tags": [
+      "индустрия",
+      "бизнес",
+      "кальянная",
+      "вложения",
+      "окупаемость"
+    ],
+    "sources": 3,
+    "path": "knowledge/10-industriya/kak-otkryt-kalyannuyu.md",
     "updated": "2026-06-24"
   },
   {
