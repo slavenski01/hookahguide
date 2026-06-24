@@ -1,0 +1,40 @@
+# Деплой по IP без домена (HTTP). API публикуется напрямую на порту 8080.
+# Meilisearch остаётся во внутренней сети (наружу не торчит).
+# Когда появится домен — переключитесь на основной docker-compose.yml (Caddy + HTTPS).
+#
+#   docker compose -f docker-compose.ip.yml up -d --build
+#
+services:
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: hookahguide-api
+    environment:
+      PORT: 8080
+      HOST: 0.0.0.0
+      CONTENT_ROOT: /content
+      MEILI_URL: http://meilisearch:7700
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:?задайте MEILI_MASTER_KEY в .env}
+    ports:
+      - "${API_PORT:-8080}:8080"
+    volumes:
+      - ./knowledge:/content/knowledge:ro
+      - ./data:/content/data:ro
+    depends_on:
+      - meilisearch
+    restart: unless-stopped
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.10
+    container_name: hookahguide-meili
+    environment:
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:?задайте MEILI_MASTER_KEY в .env}
+      MEILI_ENV: production
+      MEILI_NO_ANALYTICS: "true"
+    volumes:
+      - meili_data:/meili_data
+    restart: unless-stopped
+
+volumes:
+  meili_data:
