@@ -18,19 +18,23 @@ HookahGuide/
 ├── backend/       # API (Kotlin + Ktor): статьи, поиск, справочники
 │   └── README.md  # эндпоинты + деплой
 ├── scripts/       # Генерация индекса и валидация
-└── docker-compose.yml  # API + Meilisearch (деплой одной командой)
+├── Caddyfile      # reverse proxy + авто-HTTPS
+└── docker-compose.yml  # Caddy + API + Meilisearch (деплой одной командой)
 ```
 
 ## Backend API
 
 REST API на **Kotlin + Ktor** с поиском через **Meilisearch** — для мобильного
-приложения. Деплой на сервер одной командой:
+приложения. Перед API стоит **Caddy** (reverse proxy с автоматическим HTTPS).
+Деплой на сервер одной командой (нужен домен, направленный на сервер):
 
 ```bash
-cp .env.example .env   # задать MEILI_MASTER_KEY
+cp .env.example .env   # задать DOMAIN, ACME_EMAIL, MEILI_MASTER_KEY
 docker compose up -d --build
-curl localhost:8080/health
+curl https://ВАШ_ДОМЕН/health
 ```
+
+Наружу торчит только Caddy (80/443); API и Meilisearch — во внутренней сети.
 
 Эндпоинты и подробности — в [backend/README.md](backend/README.md).
 

@@ -1,0 +1,16 @@
+# Caddy reverse proxy для HookahGuide API.
+# Домен и email берутся из переменных окружения (.env).
+# Caddy автоматически получает и продлевает TLS-сертификат Let's Encrypt.
+
+{
+	# Email для Let's Encrypt (уведомления об истечении сертификата).
+	email {$ACME_EMAIL:admin@example.com}
+}
+
+# Запросы к этому домену проксируются на внутренний сервис api:8080.
+# Для локальной проверки можно оставить DOMAIN=localhost — Caddy выдаст
+# самоподписанный сертификат.
+{$DOMAIN:localhost} {
+	encode zstd gzip
+	reverse_proxy api:8080
+}

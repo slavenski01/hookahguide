@@ -63,27 +63,38 @@ CONTENT_ROOT=.. java -jar build/libs/hookahguide-api-all.jar
 # → встроенный поиск (Meili не задан). API на http://localhost:8080
 ```
 
-## Деплой на сервер (Docker Compose)
+## Деплой на сервер (Docker Compose + HTTPS)
 
-На сервере нужен только Docker + Docker Compose. Из корня репозитория:
+На сервере нужен только Docker + Docker Compose. Поднимаются три контейнера:
+**caddy** (reverse proxy, 80/443, авто-HTTPS), **api** (внутренний), **meilisearch**
+(внутренний). Наружу торчит только Caddy — API напрямую не доступен.
+
+**Предварительно:** направьте A-запись домена (`api.example.ru`) на IP сервера и
+откройте порты 80 и 443.
 
 ```bash
 cp .env.example .env
-# задайте MEILI_MASTER_KEY (openssl rand -base64 32)
+# задайте: DOMAIN (ваш домен), ACME_EMAIL, MEILI_MASTER_KEY (openssl rand -base64 32)
 docker compose up -d --build
-curl localhost:8080/health        # {"status":"ok",...,"searchEngine":"meilisearch"}
+
+# Проверка (Caddy сам получит TLS-сертификат за ~10–30 сек):
+curl https://api.example.ru/health   # {"status":"ok",...,"searchEngine":"meilisearch"}
+docker compose logs api | grep Meili # "Meilisearch проиндексирован: 29 статей"
 ```
 
-Поднимаются два контейнера: `api` (8080) и `meilisearch` (внутренний). Контент
-монтируется read-only из репозитория — правки статей подхватываются при перезапуске
-`api` (переиндексация Meili). Для HTTPS поставьте перед API reverse proxy
-(Nginx/Caddy/Traefik).
+Контент монтируется read-only из репозитория — правки статей подхватываются при
+перезапуске `api` (переиндексация Meili). API сам ждёт готовности Meilisearch при
+старте (retry), поэтому порядок запуска контейнеров не важен.
 
 Обновление контента после изменения статей:
 ```bash
 git pull
 docker compose restart api      # переиндексирует Meilisearch
 ```
+
+> Локальная проверка без домена: поставьте `DOMAIN=localhost` — Caddy выдаст
+> самоподписанный сертификат, API будет на `https://localhost`. Либо раскомментируйте
+> блок `ports` у сервиса `api` в `docker-compose.yml` и обращайтесь на `http://localhost:8080`.
 
 ## Заметки
 

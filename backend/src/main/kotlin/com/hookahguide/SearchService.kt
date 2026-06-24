@@ -5,6 +5,7 @@ import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import kotlinx.coroutines.delay
 import kotlinx.serialization.json.*
 import org.slf4j.LoggerFactory
 
@@ -36,10 +37,27 @@ class SearchService(
         if (!meiliKey.isNullOrBlank()) header(HttpHeaders.Authorization, "Bearer $meiliKey")
     }
 
+    /** Ждёт готовности Meili (он может стартовать позже API в compose). */
+    private suspend fun waitForMeili(attempts: Int = 30, delayMs: Long = 2000): Boolean {
+        repeat(attempts) { i ->
+            val ok = runCatching {
+                client.get("$meiliUrl/health") { auth() }.status.isSuccess()
+            }.getOrDefault(false)
+            if (ok) return true
+            if (i == 0) log.info("Ожидание Meilisearch по адресу $meiliUrl …")
+            delay(delayMs)
+        }
+        return false
+    }
+
     /** Индексирует статьи в Meili. Безопасно вызывать при старте; ошибки не фатальны. */
     suspend fun indexAll() {
         if (meiliUrl.isNullOrBlank()) {
             log.info("MEILI_URL не задан — используется встроенный поиск")
+            return
+        }
+        if (!waitForMeili()) {
+            log.warn("Meilisearch не ответил за отведённое время — используется встроенный поиск")
             return
         }
         try {
