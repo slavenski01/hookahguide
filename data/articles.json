@@ -442,6 +442,40 @@
     "updated": "2026-06-24"
   },
   {
+    "slug": "gustoy-dym",
+    "title": "Как добиться густого дыма",
+    "section": "08-masterstvo",
+    "level": "intermediate",
+    "status": "done",
+    "tags": [
+      "мастерство",
+      "дым",
+      "дымность",
+      "глицерин",
+      "жар"
+    ],
+    "sources": 3,
+    "path": "knowledge/08-masterstvo/gustoy-dym.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "ohlazhdenie-dyma",
+    "title": "Охлаждение дыма: как сделать кальян прохладным",
+    "section": "08-masterstvo",
+    "level": "intermediate",
+    "status": "done",
+    "tags": [
+      "мастерство",
+      "охлаждение",
+      "лёд",
+      "колба",
+      "шланг"
+    ],
+    "sources": 3,
+    "path": "knowledge/08-masterstvo/ohlazhdenie-dyma.md",
+    "updated": "2026-06-24"
+  },
+  {
     "slug": "prigotovlenie-i-nastrojka",
     "title": "Мастерство приготовления и настройки кальяна",
     "section": "08-masterstvo",
@@ -456,6 +490,24 @@
     ],
     "sources": 3,
     "path": "knowledge/08-masterstvo/prigotovlenie-i-nastrojka.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "zhidkost-v-kolbe",
+    "title": "Что лить в колбу: вода, сок, молоко, лёд — мифы и правда",
+    "section": "08-masterstvo",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "мастерство",
+      "колба",
+      "жидкость",
+      "мифы",
+      "вода",
+      "молоко"
+    ],
+    "sources": 3,
+    "path": "knowledge/08-masterstvo/zhidkost-v-kolbe.md",
     "updated": "2026-06-24"
   },
   {
