@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hookahguide/schema/brand.schema.json",
+  "title": "Brand",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "strength"],
+    "additionalProperties": false,
+    "properties": {
+      "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+      "name": { "type": "string" },
+      "origin": { "type": "string" },
+      "since": { "type": "integer" },
+      "leaf": { "type": "string", "enum": ["virginia", "burley", "oriental"] },
+      "strength": { "type": "string", "enum": ["light", "medium", "strong"] },
+      "lines": { "type": "array", "items": { "type": "string" } },
+      "notes": { "type": "string" }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "hookahguide",
+  "version": "0.1.0",
+  "private": true,
+  "description": "База знаний и справочные данные по кальянной индустрии (RU)",
+  "type": "module",
+  "scripts": {
+    "build:index": "node scripts/build-index.mjs",
+    "validate": "node scripts/validate.mjs",
+    "data": "npm run build:index && npm run validate"
+  }
+}

@@ -1,0 +1,17 @@
+[
+  { "id": "al-fakher", "name": "Al Fakher", "origin": "ОАЭ", "since": 1999, "leaf": "virginia", "strength": "light", "lines": [], "notes": "Самая распространённая классика. Дымный глицерин, увлажняющая патока, жаростойкий, прощает ошибки. Идеален новичкам." },
+  { "id": "adalya", "name": "Adalya", "origin": "Турция", "leaf": "virginia", "strength": "light", "lines": [], "notes": "Натуральные свежие фруктовые вкусы, мягкий бархатистый прохладный дым." },
+  { "id": "serbetli", "name": "Serbetli", "origin": "Турция", "leaf": "virginia", "strength": "light", "lines": [], "notes": "Лёгкий ароматный табак." },
+  { "id": "fumari", "name": "Fumari", "origin": "США", "leaf": "virginia", "strength": "light", "lines": [], "notes": "Ароматный, влажный, лёгкий." },
+  { "id": "starbuzz", "name": "Starbuzz", "origin": "США", "leaf": "virginia", "strength": "light", "lines": [], "notes": "Яркие вкусы, лёгкая/средняя крепость." },
+  { "id": "must-have", "name": "Must Have", "origin": "Россия", "leaf": "burley", "strength": "medium", "lines": [], "notes": "Популярный и универсальный, стабильное качество, чистый аромат, баланс крепости (средний→крепкий), огромный ассортимент." },
+  { "id": "sebero", "name": "Sebero", "origin": "Россия", "leaf": "virginia", "strength": "medium", "lines": [], "notes": "Хорошее соотношение цена/качество, востребованы средние линейки." },
+  { "id": "spectrum", "name": "Spectrum", "origin": "Россия", "leaf": "burley", "strength": "medium", "lines": [], "notes": "Крепкий середняк с характером." },
+  { "id": "nakhla", "name": "Nakhla", "origin": "Египет", "leaf": "burley", "strength": "medium", "lines": [], "notes": "Классический египетский табак, хорош на турке." },
+  { "id": "wto", "name": "WTO", "origin": "Россия", "leaf": "burley", "strength": "medium", "lines": [], "notes": "Средне-крепкий." },
+  { "id": "darkside", "name": "DarkSide", "origin": "Россия", "leaf": "burley", "strength": "strong", "lines": ["Base", "Core", "Rare"], "notes": "Культовый, синоним крепости и качества. Отборный лист, плотный дым, до ~25% листа в крепких линейках." },
+  { "id": "bonche", "name": "Bonche", "origin": "Россия", "leaf": "burley", "strength": "strong", "lines": [], "notes": "Сигарный характер, крепость, нестандартные вкусы, высокое качество." },
+  { "id": "satyr", "name": "Satyr", "origin": "Россия", "leaf": "burley", "strength": "strong", "lines": [], "notes": "Для любителей мощного удара." },
+  { "id": "tangiers", "name": "Tangiers", "origin": "США", "leaf": "burley", "strength": "strong", "lines": [], "notes": "Сухой американский табак, требователен к забивке и настройке, выраженный лист." },
+  { "id": "overdose", "name": "Overdose", "origin": "Россия", "leaf": "burley", "strength": "strong", "lines": [], "notes": "Очень крепкий." }
+]

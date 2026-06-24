@@ -1,0 +1,493 @@
+[
+  {
+    "slug": "bestabachnye-smesi",
+    "title": "Бестабачные смеси: альтернативы муасселю",
+    "section": "00-osnovy",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "основы",
+      "бестабачка",
+      "чайная основа",
+      "альтернативы",
+      "никотин"
+    ],
+    "sources": 3,
+    "path": "knowledge/00-osnovy/bestabachnye-smesi.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "fizika-dyma-filtraciya",
+    "title": "Физика дыма и фильтрация: что делает вода в колбе",
+    "section": "00-osnovy",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "основы",
+      "физика",
+      "фильтрация",
+      "здоровье",
+      "мифы"
+    ],
+    "sources": 4,
+    "path": "knowledge/00-osnovy/fizika-dyma-filtraciya.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "istoriya-kalyana",
+    "title": "История кальяна: от Индии и Персии до наших дней",
+    "section": "00-osnovy",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "основы",
+      "история",
+      "культура",
+      "этимология"
+    ],
+    "sources": 3,
+    "path": "knowledge/00-osnovy/istoriya-kalyana.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "kultura-i-etiket",
+    "title": "Культура и этикет курения кальяна",
+    "section": "00-osnovy",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "основы",
+      "культура",
+      "этикет",
+      "традиции"
+    ],
+    "sources": 3,
+    "path": "knowledge/00-osnovy/kultura-i-etiket.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "ustroystvo-kalyana",
+    "title": "Устройство кальяна и принцип работы",
+    "section": "00-osnovy",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "основы",
+      "устройство",
+      "принцип-работы"
+    ],
+    "sources": 2,
+    "path": "knowledge/00-osnovy/ustroystvo-kalyana.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "vidy-kalyanov",
+    "title": "Виды кальянов: региональные и конструктивные типы",
+    "section": "00-osnovy",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "основы",
+      "виды",
+      "конструкция",
+      "бренды"
+    ],
+    "sources": 3,
+    "path": "knowledge/00-osnovy/vidy-kalyanov.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "aksessuary",
+    "title": "Аксессуары для кальяна",
+    "section": "01-oborudovanie",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "оборудование",
+      "аксессуары",
+      "диффузор",
+      "щипцы",
+      "плитка",
+      "колпак"
+    ],
+    "sources": 3,
+    "path": "knowledge/01-oborudovanie/aksessuary.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "kak-vybrat-kalyan",
+    "title": "Как выбрать кальян и комплектующие",
+    "section": "01-oborudovanie",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "оборудование",
+      "выбор",
+      "шахта",
+      "колба",
+      "шланг",
+      "герметичность"
+    ],
+    "sources": 3,
+    "path": "knowledge/01-oborudovanie/kak-vybrat-kalyan.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "brendy-i-linejki",
+    "title": "Бренды и линейки табака",
+    "section": "02-tabak",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "табак",
+      "бренды",
+      "линейки",
+      "обзор"
+    ],
+    "sources": 4,
+    "path": "knowledge/02-tabak/brendy-i-linejki.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "krepost",
+    "title": "Крепость табака: от чего зависит и как выбрать",
+    "section": "02-tabak",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "табак",
+      "крепость",
+      "никотин",
+      "выбор"
+    ],
+    "sources": 3,
+    "path": "knowledge/02-tabak/krepost.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "osnova-i-sostav",
+    "title": "Основа и состав табака",
+    "section": "02-tabak",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "табак",
+      "состав",
+      "глицерин",
+      "меласса",
+      "мёд",
+      "ароматизаторы"
+    ],
+    "sources": 3,
+    "path": "knowledge/02-tabak/osnova-i-sostav.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "tipy-lista-i-narezka",
+    "title": "Типы листа и нарезка табака",
+    "section": "02-tabak",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "табак",
+      "лист",
+      "вирджиния",
+      "берли",
+      "ориентал",
+      "нарезка"
+    ],
+    "sources": 3,
+    "path": "knowledge/02-tabak/tipy-lista-i-narezka.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "vkusovye-semejstva",
+    "title": "Вкусовые семейства табака",
+    "section": "02-tabak",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "табак",
+      "вкусы",
+      "категории",
+      "миксология"
+    ],
+    "sources": 3,
+    "path": "knowledge/02-tabak/vkusovye-semejstva.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "vidy-uglej-i-rozzhig",
+    "title": "Угли: виды, размеры и розжиг",
+    "section": "03-ugli",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "угли",
+      "кокосовые",
+      "древесные",
+      "розжиг",
+      "теплоотдача"
+    ],
+    "sources": 3,
+    "path": "knowledge/03-ugli/vidy-uglej-i-rozzhig.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "bazovye-metody",
+    "title": "Базовые методы забивки",
+    "section": "04-zabivka",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "забивка",
+      "методы",
+      "воздушная",
+      "плотная",
+      "оверпак",
+      "калауд",
+      "фольга"
+    ],
+    "sources": 3,
+    "path": "knowledge/04-zabivka/bazovye-metody.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "oshibki-zabivki",
+    "title": "Частые ошибки забивки и почему кальян горчит",
+    "section": "04-zabivka",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "забивка",
+      "ошибки",
+      "горечь",
+      "диагностика"
+    ],
+    "sources": 3,
+    "path": "knowledge/04-zabivka/oshibki-zabivki.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "prodvinutye-tehniki",
+    "title": "Продвинутые техники забивки: оверпак и касание",
+    "section": "04-zabivka",
+    "level": "advanced",
+    "status": "done",
+    "tags": [
+      "забивка",
+      "оверпак",
+      "касание",
+      "халфпак",
+      "крепкий",
+      "продвинутое"
+    ],
+    "sources": 3,
+    "path": "knowledge/04-zabivka/prodvinutye-tehniki.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "vidy-chash",
+    "title": "Виды чаш и под какой табак",
+    "section": "05-chashi",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "чаши",
+      "фанел",
+      "турка",
+      "убивашка",
+      "материалы",
+      "глазурь"
+    ],
+    "sources": 3,
+    "path": "knowledge/05-chashi/vidy-chash.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "upravlenie-zharom",
+    "title": "Управление жаром: калауд, колпак, HMD",
+    "section": "06-nagrev",
+    "level": "intermediate",
+    "status": "done",
+    "tags": [
+      "нагрев",
+      "калауд",
+      "колпак",
+      "hmd",
+      "жар",
+      "ротация"
+    ],
+    "sources": 3,
+    "path": "knowledge/06-nagrev/upravlenie-zharom.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "oshibki-miksov",
+    "title": "Ошибки миксологии: почему микс не получается",
+    "section": "07-miksologiya",
+    "level": "intermediate",
+    "status": "done",
+    "tags": [
+      "миксология",
+      "ошибки",
+      "сочетания",
+      "баланс"
+    ],
+    "sources": 3,
+    "path": "knowledge/07-miksologiya/oshibki-miksov.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "principy-miksologii",
+    "title": "Принципы миксологии: как собирать миксы",
+    "section": "07-miksologiya",
+    "level": "intermediate",
+    "status": "done",
+    "tags": [
+      "миксология",
+      "принципы",
+      "пропорции",
+      "база",
+      "вкусы"
+    ],
+    "sources": 3,
+    "path": "knowledge/07-miksologiya/principy-miksologii.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "recepty-miksov",
+    "title": "Проверенные рецепты миксов",
+    "section": "07-miksologiya",
+    "level": "intermediate",
+    "status": "done",
+    "tags": [
+      "миксология",
+      "рецепты",
+      "миксы",
+      "пропорции"
+    ],
+    "sources": 3,
+    "path": "knowledge/07-miksologiya/recepty-miksov.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "diagnostika-problem",
+    "title": "Диагностика проблем: сводная таблица",
+    "section": "08-masterstvo",
+    "level": "intermediate",
+    "status": "done",
+    "tags": [
+      "мастерство",
+      "диагностика",
+      "тяга",
+      "дым",
+      "горечь",
+      "булькание"
+    ],
+    "sources": 3,
+    "path": "knowledge/08-masterstvo/diagnostika-problem.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "prigotovlenie-i-nastrojka",
+    "title": "Мастерство приготовления и настройки кальяна",
+    "section": "08-masterstvo",
+    "level": "intermediate",
+    "status": "done",
+    "tags": [
+      "мастерство",
+      "приготовление",
+      "тяга",
+      "вода",
+      "раскур"
+    ],
+    "sources": 3,
+    "path": "knowledge/08-masterstvo/prigotovlenie-i-nastrojka.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "chistka-i-hranenie",
+    "title": "Чистка кальяна и хранение табака",
+    "section": "09-uhod",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "уход",
+      "чистка",
+      "гигиена",
+      "хранение",
+      "мундштук"
+    ],
+    "sources": 3,
+    "path": "knowledge/09-uhod/chistka-i-hranenie.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "professiya-i-rynok",
+    "title": "Профессия кальянщика и рынок индустрии",
+    "section": "10-industriya",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "индустрия",
+      "кальянщик",
+      "профессия",
+      "рынок",
+      "тренды"
+    ],
+    "sources": 3,
+    "path": "knowledge/10-industriya/professiya-i-rynok.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "riski-i-bezopasnost",
+    "title": "Здоровье и безопасность: риски и факты",
+    "section": "11-zdorovye",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "здоровье",
+      "безопасность",
+      "угарный газ",
+      "никотин",
+      "мифы"
+    ],
+    "sources": 4,
+    "path": "knowledge/11-zdorovye/riski-i-bezopasnost.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "snizhenie-vreda",
+    "title": "Снижение вреда: практические меры безопасности",
+    "section": "11-zdorovye",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "здоровье",
+      "безопасность",
+      "угарный газ",
+      "вентиляция",
+      "гигиена"
+    ],
+    "sources": 3,
+    "path": "knowledge/11-zdorovye/snizhenie-vreda.md",
+    "updated": "2026-06-24"
+  },
+  {
+    "slug": "glossariy",
+    "title": "Глоссарий кальянных терминов",
+    "section": "12-glossariy",
+    "level": "beginner",
+    "status": "done",
+    "tags": [
+      "глоссарий",
+      "термины",
+      "сленг",
+      "справка"
+    ],
+    "sources": 3,
+    "path": "knowledge/12-glossariy/README.md",
+    "updated": "2026-06-24"
+  }
+]

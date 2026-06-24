@@ -1,0 +1,36 @@
+[
+  {
+    "id": "virginia",
+    "name": "Вирджиния",
+    "nameEn": "Virginia",
+    "nicotinePct": [1, 3],
+    "sugar": "high",
+    "heatResistance": "high",
+    "marketSharePct": 40,
+    "characteristics": "Высокий сахар, низкий никотин, нейтральный аромат — \"чистый холст\" для ароматизаторов. Допускает мелкую нарезку.",
+    "typicalBrands": ["al-fakher", "adalya"],
+    "articleRef": "02-tabak/tipy-lista-i-narezka"
+  },
+  {
+    "id": "burley",
+    "name": "Берли",
+    "nameEn": "Burley",
+    "nicotinePct": [2, 4],
+    "sugar": "low",
+    "heatResistance": "medium",
+    "characteristics": "Больше никотина и меньше сахара, пористый лист хорошо впитывает сироп. Светлый — ореховый, тёмный — сигарный, крепче.",
+    "typicalBrands": ["darkside", "bonche"],
+    "articleRef": "02-tabak/tipy-lista-i-narezka"
+  },
+  {
+    "id": "oriental",
+    "name": "Ориентал",
+    "nameEn": "Oriental",
+    "nicotinePct": [1, 2],
+    "sugar": "low",
+    "heatResistance": "medium",
+    "characteristics": "Мелкий светло-зелёный лист, мягкость и лёгкая кислинка. Чаще в купажах для оттенка.",
+    "typicalBrands": [],
+    "articleRef": "02-tabak/tipy-lista-i-narezka"
+  }
+]

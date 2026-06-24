@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hookahguide/schema/mix.schema.json",
+  "title": "Mix",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "components"],
+    "additionalProperties": false,
+    "properties": {
+      "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+      "name": { "type": "string" },
+      "category": { "type": "string", "enum": ["fruity", "berry", "citrus", "fresh", "dessert", "spicy", "floral", "drinks"] },
+      "components": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 4,
+        "items": {
+          "type": "object",
+          "required": ["flavor", "share"],
+          "additionalProperties": false,
+          "properties": {
+            "flavor": { "type": "string" },
+            "family": { "type": "string" },
+            "share": { "type": "number", "minimum": 0, "maximum": 100 }
+          }
+        }
+      },
+      "profile": { "type": "string" }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+[
+  { "id": "00-osnovy", "order": 0, "title": "Основы", "slug": "osnovy", "description": "Что такое кальян, история, устройство, виды, физика дыма, культура и этикет." },
+  { "id": "01-oborudovanie", "order": 1, "title": "Оборудование", "slug": "oborudovanie", "description": "Шахта, колба, шланг, уплотнители, диффузор, аксессуары; выбор кальяна." },
+  { "id": "02-tabak", "order": 2, "title": "Табак", "slug": "tabak", "description": "Типы листа, нарезка, состав, крепость, бренды, вкусовые семейства." },
+  { "id": "03-ugli", "order": 3, "title": "Угли", "slug": "ugli", "description": "Виды углей, размеры, розжиг, теплоотдача." },
+  { "id": "04-zabivka", "order": 4, "title": "Забивка", "slug": "zabivka", "description": "Методы забивки, продвинутые техники, частые ошибки." },
+  { "id": "05-chashi", "order": 5, "title": "Чаши", "slug": "chashi", "description": "Виды чаш, материалы, под какой табак." },
+  { "id": "06-nagrev", "order": 6, "title": "Нагрев", "slug": "nagrev", "description": "Калауд, колпак, HMD, схемы углей, управление жаром." },
+  { "id": "07-miksologiya", "order": 7, "title": "Миксология", "slug": "miksologiya", "description": "Принципы сочетаний, рецепты миксов, ошибки." },
+  { "id": "08-masterstvo", "order": 8, "title": "Мастерство", "slug": "masterstvo", "description": "Приготовление, настройка тяги и жара, диагностика проблем." },
+  { "id": "09-uhod", "order": 9, "title": "Уход", "slug": "uhod", "description": "Чистка кальяна, хранение табака, гигиена." },
+  { "id": "10-industriya", "order": 10, "title": "Индустрия", "slug": "industriya", "description": "Профессия кальянщика, рынок, тренды, регулирование." },
+  { "id": "11-zdorovye", "order": 11, "title": "Здоровье и безопасность", "slug": "zdorovye", "description": "Риски, угарный газ, никотин, гигиена, снижение вреда, мифы." },
+  { "id": "12-glossariy", "order": 12, "title": "Глоссарий", "slug": "glossariy", "description": "Термины и сленг кальянной культуры." }
+]

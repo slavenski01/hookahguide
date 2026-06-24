@@ -1,0 +1,35 @@
+[
+  {
+    "id": "coconut",
+    "name": "Кокосовый уголь",
+    "nameEn": "Coconut",
+    "recommended": true,
+    "burnTimeMin": [60, 90],
+    "ash": "low",
+    "coMonoxide": "lower",
+    "sizesMm": [22, 25, 26],
+    "lightingTimeMin": [5, 10],
+    "notes": "Долго и ровно держит жар, мало пепла, нейтральный запах. Требует плиты/горелки для розжига.",
+    "articleRef": "03-ugli/vidy-uglej-i-rozzhig"
+  },
+  {
+    "id": "wood",
+    "name": "Древесный уголь (брикеты)",
+    "nameEn": "Wood briquette",
+    "recommended": false,
+    "ash": "high",
+    "coMonoxide": "medium",
+    "notes": "Легче разжигается, мягкий естественный жар, но быстрее прогорает и больше пепла.",
+    "articleRef": "03-ugli/vidy-uglej-i-rozzhig"
+  },
+  {
+    "id": "self-lighting",
+    "name": "Саморозжиг",
+    "nameEn": "Quick-lighting",
+    "recommended": false,
+    "lightingTimeMin": [5, 5],
+    "coMonoxide": "higher",
+    "notes": "Содержит селитру, зажигается от зажигалки, но даёт химический привкус и больше CO. Нежелателен для дома.",
+    "articleRef": "03-ugli/vidy-uglej-i-rozzhig"
+  }
+]
