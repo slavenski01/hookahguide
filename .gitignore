@@ -4,3 +4,9 @@ node_modules/
 npm-debug.log*
 dist/
 .env
+
+# Gradle / JVM build
+backend/.gradle/
+backend/build/
+.gradle/
+build/

@@ -15,8 +15,24 @@ HookahGuide/
 │   ├── README.md
 │   ├── *.json
 │   └── schema/    # JSON Schema
-└── scripts/       # Генерация индекса и валидация
+├── backend/       # API (Kotlin + Ktor): статьи, поиск, справочники
+│   └── README.md  # эндпоинты + деплой
+├── scripts/       # Генерация индекса и валидация
+└── docker-compose.yml  # API + Meilisearch (деплой одной командой)
 ```
+
+## Backend API
+
+REST API на **Kotlin + Ktor** с поиском через **Meilisearch** — для мобильного
+приложения. Деплой на сервер одной командой:
+
+```bash
+cp .env.example .env   # задать MEILI_MASTER_KEY
+docker compose up -d --build
+curl localhost:8080/health
+```
+
+Эндпоинты и подробности — в [backend/README.md](backend/README.md).
 
 ## Содержание
 
