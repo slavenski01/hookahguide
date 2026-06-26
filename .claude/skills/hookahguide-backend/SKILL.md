@@ -38,13 +38,24 @@ Caddyfile, .env.example, DEPLOY.md
 ## Как работает
 
 1. На старте `ContentRepository` читает `CONTENT_ROOT/knowledge/**.md` (frontmatter +
-   тело) и `CONTENT_ROOT/data/*.json`.
+   тело) и `CONTENT_ROOT/data/*.json` (read-only контент).
 2. `SearchService.indexAll()` дожидается Meilisearch (retry) и индексирует статьи.
    Если Meili недоступен — прозрачный fallback на встроенный поиск (API не падает).
-3. Роуты (`/health`, `/api/sections`, `/api/articles`, `/api/articles/{slug}`,
-   `/api/search`, `/api/reference/{name}`) отдают JSON.
+3. `Persistence.init()` подключает БД (Postgres в проде, H2 локально), создаёт схему
+   (retry — БД может стартовать позже). `UserService` — CRUD пользовательского контента.
+4. Роуты: контент (`/api/sections`, `/api/articles*`, `/api/search`, `/api/reference/*`),
+   аккаунты (`/api/auth/register|login`), пользовательский контент под JWT
+   (`/api/me`, `/api/me/{notes|mixes|packings|hookahs|edit-requests}`).
 
-Конфиг через env: `PORT`, `HOST`, `CONTENT_ROOT`, `MEILI_URL`, `MEILI_MASTER_KEY`.
+Конфиг через env: `PORT`, `HOST`, `CONTENT_ROOT`, `MEILI_URL`, `MEILI_MASTER_KEY`,
+`DATABASE_URL` (дефолт H2 in-memory), `DB_USER`, `DB_PASSWORD`, `JWT_SECRET`.
+
+## Слои данных
+
+- **Контент** (статьи, справочники) — Markdown/JSON в файлах, read-only, в git.
+- **Пользовательские данные** (users, notes, edit_requests, user_mixes, user_packings,
+  user_hookahs) — в PostgreSQL (Exposed + HikariCP). JSON-поля хранятся как text для
+  переносимости H2/Postgres. Пароли — BCrypt, сессии — JWT (30 дней).
 
 ## Частые задачи
 
@@ -106,6 +117,14 @@ API_PORT=80 ./deploy-no-compose.sh
   деплой/проверки делать через мобильный хотспот или веб-консоль провайдера; внешнюю
   доступность проверять онлайн-чекером портов или с телефона без VPN.
 - **Порт 8080 у IHC закрыт**, 80 — открыт. Для HTTPS позже: домен + Caddy (`docker-compose.yml`).
+- **Gradle-прокси:** в `~/.gradle/gradle.properties` прописан рабочий прокси
+  `127.0.0.1:10809`. Если он выключен — `./gradlew` падает с `Connection refused` при
+  докачке. Обход для сборки (ничего не коммитя):
+  `./gradlew ... -Dhttp.proxyHost= -Dhttps.proxyHost= -Dhttp.nonProxyHosts='*' -Dhttps.nonProxyHosts='*'`.
+- **Exposed 0.57:** в `deleteWhere { }` лямбда имеет receiver-таблицу, не
+  SqlExpressionBuilder → `eq` не виден. Оборачивать условие в `Op.build { ... }`.
+- **Локальный запуск без Postgres:** `DATABASE_URL` по умолчанию = H2 in-memory, можно
+  поднимать API и тестировать auth/CRUD без БД-сервиса.
 
 ## Дальнейшие шаги
 Домен + HTTPS (Caddy), OpenAPI-спека, мобильный клиент (см. MOBILE_API_SPEC.md),

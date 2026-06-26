@@ -124,6 +124,58 @@
 `sections`, `articles`.
 404 при неизвестном имени: `{ "error": "reference_not_found: доступны ..." }`
 
+## 3a. Аккаунты и пользовательский контент (требуют авторизации)
+
+Пользователь регистрируется/логинится и получает **JWT-токен** (живёт 30 дней). Во все
+запросы к `/api/me/*` добавляй заголовок `Authorization: Bearer <token>`. Без него — 401
+`{ "error": "unauthorized" }`.
+
+### POST /api/auth/register
+Тело: `{ "email": "...", "password": "...", "displayName": "..."? }`
+(пароль ≥ 6 символов). Ответ 201:
+```json
+{ "token": "eyJ...", "user": { "id": "uuid", "email": "...", "displayName": "...", "createdAt": "ISO-8601" } }
+```
+Ошибки: 400 `invalid_email`/`weak_password`, 409 `email_taken`.
+
+### POST /api/auth/login
+Тело: `{ "email": "...", "password": "..." }` → `{ token, user }`.
+401 `invalid_credentials` при неверной паре.
+
+### GET /api/me
+Текущий пользователь (по токену) → `UserDto`.
+
+### Пользовательские сущности (CRUD)
+
+Единый паттерн для каждого ресурса (всё под `/api/me`, всё требует токен):
+
+| Действие | Запрос |
+|----------|--------|
+| Список | `GET /api/me/{ресурс}` |
+| Создать | `POST /api/me/{ресурс}` → 201 |
+| Обновить | `PUT /api/me/{ресурс}/{id}` (нет — 404) |
+| Удалить | `DELETE /api/me/{ресурс}/{id}` → 204 (нет — 404) |
+
+Ресурсы и их поля (id/createdAt/updatedAt — серверные):
+
+- **`notes`** (заметки): `{ title, body, articleSlug? }` — `articleSlug` опц. привязка к статье.
+- **`mixes`** (свои миксы): `{ name, components: [{flavor, family?, share?}], profile? }`.
+- **`packings`** (свои забивки): `{ title, tobacco?, bowl?, method?, heat?, notes? }`.
+- **`hookahs`** (свои кальяны): `{ name, shaft?, bowl?, hose?, heat?, liquid?, notes? }`.
+- **`edit-requests`** (заявки на правку статьи): `POST/GET/DELETE` (без PUT);
+  создание `{ articleSlug, message }`, ответ содержит `status` (`pending`/`approved`/`rejected`).
+
+Пример (создать заметку):
+```
+POST /api/me/notes
+Authorization: Bearer eyJ...
+{ "title": "Моя заметка", "body": "...", "articleSlug": "krepost" }
+→ 201 { "id":"uuid","title":"...","body":"...","articleSlug":"krepost","createdAt":"...","updatedAt":"..." }
+```
+
+> Хранение токена в приложении: secure storage (Android EncryptedSharedPreferences /
+> iOS Keychain). При 401 — разлогинить и отправить на экран входа.
+
 ## 4. Модели справочников
 
 **brands** — бренды табака:

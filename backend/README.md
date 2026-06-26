@@ -34,6 +34,11 @@ data/*.json     ─┤→ ContentRepository ┤
 | GET | `/api/articles/{slug}` | Полная статья с телом Markdown |
 | GET | `/api/search?q=` | Поиск по статьям. Доп.: `section`, `limit`. Возвращает сниппеты |
 | GET | `/api/reference/{name}` | Справочник: `brands`, `bowls`, `coals`, `mixes`, `glossary`, `tobacco-leaf`, `flavor-families`, `sections`, `articles` |
+| POST | `/api/auth/register` · `/api/auth/login` | Регистрация/вход → JWT-токен |
+| GET | `/api/me` | Текущий пользователь (JWT) |
+| CRUD | `/api/me/{notes\|mixes\|packings\|hookahs\|edit-requests}` | Пользовательский контент (JWT) |
+
+Полный контракт (auth, тела запросов, ошибки) — в [../docs/MOBILE_API_SPEC.md](../docs/MOBILE_API_SPEC.md).
 
 Примеры:
 ```bash
@@ -53,6 +58,9 @@ curl localhost:8080/api/reference/mixes
 | `CONTENT_ROOT` | `..` | Корень с `knowledge/` и `data/` |
 | `MEILI_URL` | — (не задан → встроенный поиск) | URL Meilisearch |
 | `MEILI_MASTER_KEY` | — | Ключ Meilisearch |
+| `DATABASE_URL` | `jdbc:h2:mem:hookah…` | JDBC URL БД (в проде — Postgres) |
+| `DB_USER` / `DB_PASSWORD` | — | Учётка БД (для Postgres) |
+| `JWT_SECRET` | dev-дефолт (⚠ задать в проде) | Секрет подписи JWT |
 
 ## Запуск локально (без Docker)
 

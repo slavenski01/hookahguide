@@ -16,6 +16,10 @@ services:
       CONTENT_ROOT: /content
       MEILI_URL: http://meilisearch:7700
       MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:?задайте MEILI_MASTER_KEY в .env}
+      DATABASE_URL: jdbc:postgresql://postgres:5432/hookah
+      DB_USER: hookah
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?задайте POSTGRES_PASSWORD в .env}
+      JWT_SECRET: ${JWT_SECRET:?задайте JWT_SECRET в .env}
     ports:
       - "${API_PORT:-8080}:8080"
     volumes:
@@ -23,6 +27,18 @@ services:
       - ./data:/content/data:ro
     depends_on:
       - meilisearch
+      - postgres
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: hookahguide-postgres
+    environment:
+      POSTGRES_DB: hookah
+      POSTGRES_USER: hookah
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?задайте POSTGRES_PASSWORD в .env}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
     restart: unless-stopped
 
   meilisearch:
@@ -38,3 +54,4 @@ services:
 
 volumes:
   meili_data:
+  pg_data:

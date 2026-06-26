@@ -36,6 +36,19 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
     implementation("ch.qos.logback:logback-classic:1.5.16")
 
+    // Аутентификация (JWT) + хеширование паролей
+    implementation("io.ktor:ktor-server-auth")
+    implementation("io.ktor:ktor-server-auth-jwt")
+    implementation("at.favre.lib:bcrypt:0.10.2")
+
+    // База данных: Exposed + HikariCP + драйверы (Postgres прод, H2 локально)
+    implementation("org.jetbrains.exposed:exposed-core:0.57.0")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.57.0")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.57.0")
+    implementation("com.zaxxer:HikariCP:6.2.1")
+    implementation("org.postgresql:postgresql:42.7.4")
+    implementation("com.h2database:h2:2.3.232")
+
     testImplementation("io.ktor:ktor-server-test-host")
     testImplementation(kotlin("test"))
 }

@@ -3,8 +3,11 @@ package com.hookahguide
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
 import io.ktor.server.cio.*
 import io.ktor.server.engine.*
+import io.ktor.server.plugins.BadRequestException
 import io.ktor.server.plugins.calllogging.*
 import io.ktor.server.plugins.compression.*
 import io.ktor.server.plugins.contentnegotiation.*
@@ -24,6 +27,10 @@ data class Config(
     val contentRoot: String = System.getenv("CONTENT_ROOT") ?: "..",
     val meiliUrl: String? = System.getenv("MEILI_URL"),
     val meiliKey: String? = System.getenv("MEILI_MASTER_KEY"),
+    val databaseUrl: String = System.getenv("DATABASE_URL") ?: "jdbc:h2:mem:hookah;DB_CLOSE_DELAY=-1",
+    val dbUser: String? = System.getenv("DB_USER"),
+    val dbPassword: String? = System.getenv("DB_PASSWORD"),
+    val jwtSecret: String? = System.getenv("JWT_SECRET"),
 )
 
 fun main() {
@@ -35,16 +42,24 @@ fun main() {
 
     val search = SearchService(repo, config.meiliUrl, config.meiliKey)
 
+    // База данных + безопасность
+    Persistence.init(config.databaseUrl, config.dbUser, config.dbPassword)
+    val jwtSecret = config.jwtSecret ?: "dev-insecure-secret-change-in-production".also {
+        log.warn("JWT_SECRET не задан — используется небезопасный дефолт. Задайте JWT_SECRET в проде!")
+    }
+    Security.configure(jwtSecret)
+    val userService = UserService()
+
     log.info("Запуск HookahGuide API на ${config.host}:${config.port} (CONTENT_ROOT=${File(config.contentRoot).absolutePath})")
 
     embeddedServer(CIO, port = config.port, host = config.host) {
-        configure(repo, search)
+        configure(repo, search, userService)
         // Индексируем в Meili в фоне, чтобы не блокировать старт
         launch { search.indexAll() }
     }.start(wait = true)
 }
 
-fun Application.configure(repo: ContentRepository, search: SearchService) {
+fun Application.configure(repo: ContentRepository, search: SearchService, userService: UserService) {
     install(ContentNegotiation) {
         json(Json { prettyPrint = false; encodeDefaults = true })
     }
@@ -54,16 +69,34 @@ fun Application.configure(repo: ContentRepository, search: SearchService) {
     install(CORS) {
         anyHost() // мобильное приложение; при необходимости ограничить allowHost(...)
         allowHeader(HttpHeaders.ContentType)
+        allowHeader(HttpHeaders.Authorization)
         allowMethod(HttpMethod.Get)
+        allowMethod(HttpMethod.Post)
+        allowMethod(HttpMethod.Put)
+        allowMethod(HttpMethod.Delete)
         allowMethod(HttpMethod.Options)
     }
+    install(Authentication) {
+        jwt("auth-jwt") {
+            realm = Security.REALM
+            verifier(Security.verifier())
+            validate { cred ->
+                if (cred.payload.getClaim("uid").asString() != null) JWTPrincipal(cred.payload) else null
+            }
+            challenge { _, _ -> call.respond(HttpStatusCode.Unauthorized, ErrorResponse("unauthorized")) }
+        }
+    }
     install(StatusPages) {
+        exception<BadRequestException> { call, _ ->
+            call.respond(HttpStatusCode.BadRequest, ErrorResponse("bad_request"))
+        }
         exception<Throwable> { call, cause ->
             LoggerFactory.getLogger("StatusPages").error("Необработанная ошибка", cause)
             call.respond(HttpStatusCode.InternalServerError, ErrorResponse("internal_error"))
         }
     }
     registerRoutes(repo, search)
+    routing { userRoutes(userService) }
 }
 
 fun Application.registerRoutes(repo: ContentRepository, search: SearchService) = routing {
