@@ -67,28 +67,35 @@ curl localhost:8080/api/reference/mixes
 ```bash
 cd backend
 ./gradlew buildFatJar
-CONTENT_ROOT=.. java -jar build/libs/hookahguide-api-all.jar
-# → встроенный поиск (Meili не задан). API на http://localhost:8080
+CONTENT_ROOT=.. JWT_SECRET=dev java -jar build/libs/hookahguide-api-all.jar
+# → встроенный поиск (Meili не задан) + БД H2 in-memory (DATABASE_URL по умолчанию).
+#   API на http://localhost:8080 — аккаунты и /api/me работают без Postgres.
 ```
+
+> Если в `~/.gradle/gradle.properties` прописан прокси, а он выключен — сборка падает с
+> `Connection refused`. Обход: `./gradlew buildFatJar -Dhttp.proxyHost= -Dhttps.proxyHost= -Dhttp.nonProxyHosts='*' -Dhttps.nonProxyHosts='*'`.
 
 ## Деплой на сервер (Docker Compose + HTTPS)
 
-На сервере нужен только Docker + Docker Compose. Поднимаются три контейнера:
+На сервере нужен только Docker + Docker Compose. Поднимаются четыре контейнера:
 **caddy** (reverse proxy, 80/443, авто-HTTPS), **api** (внутренний), **meilisearch**
-(внутренний). Наружу торчит только Caddy — API напрямую не доступен.
+(внутренний), **postgres** (внутренний, том `pg_data`). Наружу торчит только Caddy.
 
 **Предварительно:** направьте A-запись домена (`api.example.ru`) на IP сервера и
 откройте порты 80 и 443.
 
 ```bash
 cp .env.example .env
-# задайте: DOMAIN (ваш домен), ACME_EMAIL, MEILI_MASTER_KEY (openssl rand -base64 32)
+# задайте: DOMAIN, ACME_EMAIL, MEILI_MASTER_KEY, POSTGRES_PASSWORD, JWT_SECRET
 docker compose up -d --build
 
 # Проверка (Caddy сам получит TLS-сертификат за ~10–30 сек):
-curl https://api.example.ru/health   # {"status":"ok",...,"searchEngine":"meilisearch"}
-docker compose logs api | grep Meili # "Meilisearch проиндексирован: 29 статей"
+curl https://api.example.ru/health   # {"status":"ok","articles":37,...,"searchEngine":"meilisearch"}
+docker compose logs api | grep -E 'Meili|БД' # "БД подключена…" и "Meilisearch проиндексирован: 37 статей"
 ```
+
+> Полная пошаговая инструкция (в т.ч. деплой по IP без compose-плагина, как на текущем
+> проде) — в [../DEPLOY.md](../DEPLOY.md).
 
 Контент монтируется read-only из репозитория — правки статей подхватываются при
 перезапуске `api` (переиндексация Meili). API сам ждёт готовности Meilisearch при

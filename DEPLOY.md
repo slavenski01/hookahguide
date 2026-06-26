@@ -1,119 +1,106 @@
 # Деплой HookahGuide API на сервер
 
-Инструкция для VPS на Ubuntu/Debian. Текущий режим — **по IP, HTTP** (без домена).
-Когда появится домен — см. раздел «Переход на домен + HTTPS» внизу.
+Инструкция для VPS на Ubuntu/Debian. Стек: **API (Kotlin/Ktor) + Meilisearch +
+PostgreSQL**. Текущий прод — IHC.ru, IP `217.144.103.16`, режим **по IP, порт 80**
+(IHC фильтрует нестандартный 8080, поэтому используем 80). Домен + HTTPS — внизу.
 
-## Шаг 1. Установить Docker (если ещё не установлен)
+## Шаг 1. Установить Docker
 
-Проверка:
 ```bash
-docker --version && docker compose version
-```
-Если команды не найдены — установить (официальный скрипт Docker):
-```bash
-curl -fsSL https://get.docker.com | sudo sh
-sudo usermod -aG docker $USER     # чтобы запускать docker без sudo
-# выйдите и зайдите снова (или: newgrp docker)
+docker --version || curl -fsSL https://get.docker.com | sudo sh
+sudo usermod -aG docker $USER && newgrp docker
 ```
 
 ## Шаг 2. Получить код (приватный репозиторий)
 
-Репозиторий приватный — для клонирования нужна авторизация. **Рекомендуемый способ —
-GitHub CLI на сервере** (он же настроит `git pull` на будущее):
-
 ```bash
-# Установка gh на Ubuntu/Debian:
-sudo apt update && sudo apt install -y gh   # если пакета нет — см. cli.github.com/manual/installation
-
-gh auth login          # GitHub.com → HTTPS → Login with a web browser (вставьте код)
-gh repo clone slavenski01/hookahguide hookahguide
-cd hookahguide
-```
-
-**Альтернатива — токен (если не хотите ставить gh):** создайте на GitHub
-fine-grained Personal Access Token с доступом **read-only Contents** к этому репозиторию
-(Settings → Developer settings → Fine-grained tokens), затем:
-```bash
+# вариант с токеном (read-only Contents fine-grained token на GitHub):
 git clone https://<ВАШ_ТОКЕН>@github.com/slavenski01/hookahguide.git hookahguide
 cd hookahguide
+# либо: sudo apt install -y gh && gh auth login && gh repo clone slavenski01/hookahguide
 ```
-> SSH-клонирование (`git@github.com:...`) тоже возможно через deploy-key, но на некоторых
-> сетях порт 22 закрыт — HTTPS-способы выше надёжнее.
 
-## Шаг 3. Настроить переменные окружения
+## Шаг 3. Запустить
+
+Есть два пути. **Если на сервере нет `docker compose` (плагина)** — используйте скрипт
+(он сам создаёт `.env` с секретами):
+
+```bash
+chmod +x deploy-no-compose.sh
+API_PORT=80 ./deploy-no-compose.sh
+```
+
+**Если `docker compose` есть** — через compose (по IP):
 
 ```bash
 cp .env.example .env
-nano .env
-```
-Для IP-режима достаточно задать **только** мастер-ключ Meilisearch:
-```
-MEILI_MASTER_KEY=<вставьте_случайный_ключ>
-```
-Сгенерировать ключ:
-```bash
-openssl rand -base64 32
-```
-(Поля `DOMAIN` и `ACME_EMAIL` в IP-режиме не используются — оставьте как есть.)
-
-## Шаг 4. Запустить
-
-```bash
-docker compose -f docker-compose.ip.yml up -d --build
-```
-Первый запуск соберёт образ (несколько минут). Поднимутся два контейнера:
-`hookahguide-api` (порт 8080) и `hookahguide-meili` (внутренний).
-
-## Шаг 5. Открыть порт в фаерволе
-
-Если используется ufw:
-```bash
-sudo ufw allow 22/tcp      # не потеряйте SSH!
-sudo ufw allow 8080/tcp
-sudo ufw enable
-```
-У облачных провайдеров (Timeweb, Selectel, Hetzner, AWS…) также откройте порт **8080**
-в панели управления (Security Group / Firewall).
-
-## Шаг 6. Проверить
-
-На сервере:
-```bash
-curl http://localhost:8080/health
-# {"status":"ok","articles":29,"sections":13,"searchEngine":"meilisearch"}
-
-docker compose -f docker-compose.ip.yml logs api | grep Meili
-# "Meilisearch проиндексирован: 29 статей"
-```
-Снаружи (с любого устройства), подставьте IP сервера:
-```bash
-curl http://SERVER_IP:8080/health
-curl "http://SERVER_IP:8080/api/search?q=горчит"
+# сгенерируйте и впишите секреты:
+#   MEILI_MASTER_KEY   = openssl rand -base64 32
+#   POSTGRES_PASSWORD  = openssl rand -base64 24
+#   JWT_SECRET         = openssl rand -base64 48
+API_PORT=80 docker compose -f docker-compose.ip.yml up -d --build
 ```
 
-## Управление
+Первый запуск собирает образ (несколько минут). Поднимаются контейнеры:
+`hookahguide-api` (порт 80), `hookahguide-meili`, `hookahguide-postgres` (оба внутренние).
+API при старте ждёт Postgres и Meilisearch (retry), порядок запуска не важен.
+
+## Шаг 4. Открыть порт 80
 
 ```bash
-docker compose -f docker-compose.ip.yml ps        # статус
-docker compose -f docker-compose.ip.yml logs -f   # логи
-docker compose -f docker-compose.ip.yml down       # остановить
+sudo ufw allow 22/tcp && sudo ufw allow 80/tcp && sudo ufw --force enable
+```
+И откройте порт **80** в панели провайдера (если там свой фаервол).
+
+## Шаг 5. Проверить
+
+```bash
+docker ps --filter name=hookahguide --format 'table {{.Names}}\t{{.Status}}'
+curl -s http://localhost/health; echo
+# {"status":"ok","articles":37,"sections":13,"searchEngine":"meilisearch"}
+
+docker logs hookahguide-api --tail 30 | grep -E 'БД|Meili'
+# "БД подключена: jdbc:postgresql://…"  и  "Meilisearch проиндексирован: 37 статей"
+
+# проверка аккаунтов:
+curl -s -X POST http://localhost/api/auth/register -H 'Content-Type: application/json' \
+  -d '{"email":"you@example.com","password":"secret123"}'; echo
+```
+Снаружи: `http://SERVER_IP/health`, `http://SERVER_IP/api/search?q=горчит`.
+
+## Управление (без compose-плагина)
+
+```bash
+docker ps                              # статус
+docker logs -f hookahguide-api         # логи
+docker restart hookahguide-api         # переиндексировать статьи после git pull
+API_PORT=80 ./deploy-no-compose.sh     # пересобрать после обновления кода
 ```
 
-## Обновление контента / кода
+## Обновление
 
 ```bash
 git pull
-docker compose -f docker-compose.ip.yml up -d --build   # пересобрать при изменении кода
-# или только переиндексировать статьи без пересборки:
-docker compose -f docker-compose.ip.yml restart api
+API_PORT=80 ./deploy-no-compose.sh     # код изменился → пересборка
+# либо только контент: docker restart hookahguide-api
 ```
+
+> Контент (статьи/справочники) монтируется read-only из репозитория и подхватывается
+> при перезапуске `api`. Пользовательские данные — в Postgres (том `pg_data`), переживают
+> пересборку и перезагрузку сервера.
+
+## Секреты (.env)
+
+`deploy-no-compose.sh` генерит их автоматически при первом запуске. Файл `.env` хранит
+`MEILI_MASTER_KEY`, `POSTGRES_PASSWORD`, `JWT_SECRET` — **не теряйте его и не коммитьте**.
+Смена `JWT_SECRET` разлогинит всех пользователей.
 
 ## Переход на домен + HTTPS (позже)
 
-Когда направите домен (A-запись) на IP сервера:
-1. В `.env` задайте `DOMAIN=ваш.домен` и `ACME_EMAIL=...`.
-2. Откройте порты 80 и 443 (и закройте 8080, если не нужен напрямую).
-3. Переключитесь на основной compose (он добавляет Caddy с авто-HTTPS):
+Когда A-запись домена будет указывать на IP:
+1. В `.env`: `DOMAIN=ваш.домен`, `ACME_EMAIL=...`.
+2. Откройте порты 80 и 443.
+3. Переключитесь на основной compose (добавляет Caddy с авто-TLS):
    ```bash
    docker compose -f docker-compose.ip.yml down
    docker compose up -d --build
@@ -122,10 +109,9 @@ docker compose -f docker-compose.ip.yml restart api
 
 ## Диагностика
 
-- **Контейнер api перезапускается** — `docker compose -f docker-compose.ip.yml logs api`.
-  Частая причина: не задан `MEILI_MASTER_KEY` в `.env`.
-- **`searchEngine: "builtin"` вместо `meilisearch`** — API не достучался до Meili.
-  Проверьте `docker compose -f docker-compose.ip.yml logs meilisearch`. API сам
-  переиндексирует при `restart api`.
-- **Снаружи не открывается, локально работает** — закрыт порт 8080 (фаервол сервера
-  или провайдера).
+- **`searchEngine: "builtin"`** — API не достучался до Meili. Чаще всего разные docker-сети:
+  `docker network connect hookah-net hookahguide-meili && docker restart hookahguide-api`.
+- **api перезапускается** — `docker logs hookahguide-api --tail 40`. Проверьте, что
+  `hookahguide-postgres` поднялся (`docker logs hookahguide-postgres --tail 20`).
+- **Снаружи не открывается, локально работает** — закрыт порт (фаервол сервера/провайдера);
+  у IHC открыт 80, а 8080 фильтруется.
