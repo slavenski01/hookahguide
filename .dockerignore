@@ -1,0 +1,17 @@
+# Контекст сборки бэкенда = корень репо. Образ использует только backend/, knowledge/, data/.
+# Всё остальное исключаем, чтобы mobile/ и артефакты не попадали на сервер и не раздували билд.
+.git
+.github
+.claude
+mobile
+docs
+scripts
+node_modules
+**/node_modules
+**/build
+**/.gradle
+**/.idea
+**/.dart_tool
+**/Pods
+**/DerivedData
+*.log

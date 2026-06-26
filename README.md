@@ -6,6 +6,10 @@
 
 ## Структура
 
+Монорепозиторий: **бэкенд** и **мобильное приложение** в одном репо. На сервер
+деплоится **только бэкенд** (Docker-сборка использует лишь `backend/`, `knowledge/`,
+`data/`; папка `mobile/` исключена через корневой `.dockerignore`).
+
 ```
 HookahGuide/
 ├── knowledge/     # База знаний — статьи в Markdown (источник истины для текстов)
@@ -15,11 +19,17 @@ HookahGuide/
 │   ├── README.md
 │   ├── *.json
 │   └── schema/    # JSON Schema
-├── backend/       # API (Kotlin + Ktor): статьи, поиск, справочники
+├── backend/       # API (Kotlin + Ktor): статьи, поиск, справочники  ← деплоится
 │   └── README.md  # эндпоинты + деплой
+├── mobile/        # Мобильное приложение (клиент к API)  ← НЕ деплоится на сервер
+│   └── README.md
+├── docs/          # MOBILE_API_SPEC.md — контракт API для приложения
 ├── scripts/       # Генерация индекса и валидация
-├── Caddyfile      # reverse proxy + авто-HTTPS
-└── docker-compose.yml  # Caddy + API + Meilisearch (деплой одной командой)
+├── .dockerignore  # исключает mobile/ и пр. из контекста сборки бэкенда
+├── Caddyfile      # reverse proxy + авто-HTTPS (для домена)
+├── docker-compose.yml      # Caddy + API + Meilisearch (домен + HTTPS)
+├── docker-compose.ip.yml   # API + Meilisearch (по IP)
+└── deploy-no-compose.sh    # запуск без compose-плагина
 ```
 
 ## Backend API

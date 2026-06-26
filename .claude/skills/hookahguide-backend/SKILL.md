@@ -66,6 +66,13 @@ CONTENT_ROOT=.. java -jar build/libs/hookahguide-api-all.jar
 cd backend && ./gradlew buildFatJar
 ```
 
+## Монорепо
+
+Репозиторий содержит и бэкенд, и мобильное приложение (`mobile/`). На сервер
+деплоится **только бэкенд**: Dockerfile копирует лишь `backend/`, `knowledge/`,
+`data/`, а корневой `.dockerignore` исключает `mobile/`, `docs/`, `.git` и пр. из
+контекста сборки. Поэтому код приложения в репо не влияет на серверный билд.
+
 ## Прод-деплой (текущее состояние)
 
 - VPS на **IHC.ru**, Ubuntu 24.04, IP **217.144.103.16**, hostname `p1028305`.

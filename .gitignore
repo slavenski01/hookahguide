@@ -10,3 +10,17 @@ backend/.gradle/
 backend/build/
 .gradle/
 build/
+
+# Mobile app build artifacts (mobile/)
+mobile/**/build/
+mobile/**/.gradle/
+mobile/**/local.properties
+mobile/**/.idea/
+mobile/**/*.iml
+mobile/**/DerivedData/
+mobile/**/Pods/
+mobile/**/.dart_tool/
+mobile/**/.flutter-plugins*
+mobile/**/node_modules/
+mobile/**/ios/Pods/
+mobile/**/android/.gradle/
